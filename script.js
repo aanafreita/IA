@@ -14,3 +14,27 @@ const textoresultado = document.querySelector('.texto-reaultado');
     alternativas: ["Alternativa 1 ", "Alternativa 2"],
   },
 ]
+const lapis = {
+  tamanho:20,
+  tipo:'HB',
+  cor:'Grafite',
+  temBorrachaAtras: false
+}
+const perguntas = [
+  {
+    enunciado:"pergunta 1",
+    alternativas:[
+      "Alternativa 1",
+      "Alternativa 2"
+    ]
+  }
+]
+const perguntas = [//abre lista de perguntas
+{//abre objeto de pergunta
+  enunciado:"pergunta 1",
+  alternativas:[
+    'Alternativa 1',
+    'Alternativa 2'
+  ]
+}//fecha objeto de pergunta
+]//fecha lista de perguntas
