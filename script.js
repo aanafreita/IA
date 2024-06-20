@@ -39,4 +39,6 @@ let pertguntaAtual;
 
  function mostraPergunta() {
 perguntaAtual = perguntas [atual]
- }
+caixaperguntas.textContent = perguntaAtual.enunciado;
+}
+const caixaPerguntas = document.querySelector(".caixa-perguntas");
