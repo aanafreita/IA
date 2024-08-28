@@ -7,20 +7,25 @@ const caixaAlternativas = document.querySelector(".caixa-alternativas");
 const caixaResultado = document.querySelector(".caixa-resultado");
 const textoResultado = document.querySelector(".texto-resultado");
 const botaoJogarNovamente = document.querySelector(".novamente-btn");
+const botaoIniciar = document.querySelector(".iniciar-btn");
+const telaInicial = document.querySelector(".tela-inicial");
 
 const perguntas = [
     {
-        enunciado: "Assim que saiu da escola voce se depara com uma nova tecnologia, um chat que consegue responder todas as dúvidas que uma pessoa pode ter, ele também gera imagens e áudios hiper-realistas. Qual o primeiro pensamento?",
+        enunciado: "Assim que saiu da escola você se depara com uma nova tecnologia, um chat que consegue responder todas as dúvidas que uma pessoa pode ter, ele também gera imagens e áudios hiper-realistas. Qual o primeiro pensamento?",
         alternativas: [
             {
                 texto: "Isso é assustador!",
-                afirmacao: "No inicio ficou com medo do que essa tecnologia pode fazer. "
+                afirmacao:["No início ficou com medo do que essa tecnologia pode fazer. "
+            ],
+            proxima: 1
             },
-            proxima: 1,
             {
                 texto: "Isso é maravilhoso!",
-                afirmacao: "Quis saber como usar IA no seu dia a dia."
-            }
+                afirmacao:[ "Quis saber como usar IA no seu dia a dia."
+            ],
+            proxima: 2,
+            },
         ]
     },
     {
@@ -82,6 +87,20 @@ let atual = 0;
 let perguntaAtual;
 let historiaFinal = "";
 
+botaoIniciar.addEventListener('click', iniciaJogo);
+
+function iniciaJogo() {
+    atual = 0;
+    historiaFinal = "";
+    telaInicial.style.display = 'none';
+    caixaPerguntas.classList.remove("mostrar");
+    caixaAlternativas.classList.remove("mostrar");
+    caixaResultado.classList.remove("mostrar");
+    mostraPergunta();
+}
+
+
+
 function mostraPergunta() {
     if (atual >= perguntas.length) {
         mostraResultado();
@@ -102,16 +121,23 @@ function mostraAlternativas(){
     }
 }
 
-function respostaSelecionada(opcaoSelecionada){
-        const afirmacoes = aleatorio(opcaoSelecionada.afirmacao);
-        historiaFinal += afirmacoes + " ";
-        atual++;
-        mostraPergunta();
+function respostaSelecionada(opcaoSelecionada) {
+    const afirmacoes = aleatorio(opcaoSelecionada.afirmacao);
+    historiaFinal += afirmacoes + " ";
+    if(opcaoSelecionada.proxima !== undefined){
+        atual = opcaoSelecionada.proxima;
+    }else{
+        mostraResultado();
+        return;
+    }
+    mostraPergunta();
 }
+
+
 
 function mostraResultado() {
     caixaPerguntas.textContent = "Em 2049...";
-    textoResultado.textContent historiaFinal;
+    textoResultado.textContent (historiaFinal);
     caixaAlternativas.textContent = "";
     caixaResultado.classList.add("mostrar");
     botaoJogarNovamente.addEventListener("click", jogaNovamente());
@@ -125,12 +151,10 @@ function jogaNovamente(){
 }
 
 function substituiNome(){
-       for(const pergunta of perguntas){
-          pergunta.enunciado = pergunta.enunciado.replace(/vocẽ/g, nome);
-       }
+    for(const pergunta of perguntas){
+        pergunta.enunciado = pergunta.enunciado.replace(/você/g, nome);
+    }
 }
 
 substituiNome();
 mostraPergunta();
-
-
